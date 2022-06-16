@@ -115,8 +115,18 @@ const postMessage = async function (req, res) {
     return res.send({status: true, data: updatedUser})
 }
 
+  const deleteUser = async (req,res)=>{
+  let userId = req.params.userId;
+
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, {$set:{isDeleted:true }} , {new:true });
+  res.send({ status: updatedUser, msg: "Deleted user" });
+}
+
+
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
 module.exports.postMessage = postMessage
+module.exports.deleteUser=deleteUser
+
